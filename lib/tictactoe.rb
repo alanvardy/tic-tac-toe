@@ -1,15 +1,13 @@
 class Board
+  attr_reader :layout
   def initialize
-    @board = [0,1,2,3,4,5,6,7,8]
+    @layout = [0,1,2,3,4,5,6,7,8]
     @players = {}
     @player_turn = 1
-    puts "WELCOME TO TIC-TAC-TOE"
-    create_players
-    play_round
   end
 
-  private
   def create_players
+    puts "WELCOME TO TIC-TAC-TOE"
     print_divider
     counter = 1
     2.times do
@@ -24,9 +22,9 @@ class Board
 
   def display
     print_margin
-    print_row(@board[0..2])
-    print_row(@board[3..5])
-    print_row(@board[6..8])
+    print_row(@layout[0..2])
+    print_row(@layout[3..5])
+    print_row(@layout[6..8])
     print_margin
     puts "\n"
   end
@@ -36,7 +34,7 @@ class Board
     print_divider
     display
     puts "Player #{player}'s turn."
-    @board[select_square] = @players[@player_turn].symbol
+    @layout[select_square] = @players[@player_turn].symbol
     if game_won
       puts "\n\n!!#{player} wins!!"
     else
@@ -50,7 +48,7 @@ class Board
     until good_input == true do
       print "Enter the number for the square desired: "
       answer = gets.chomp.to_i
-      if ((0..8).include?(answer) && @board.include?(answer))
+      if ((0..8).include?(answer) && @layout.include?(answer))
         good_input = true
       else
         print "Bad input. "
@@ -62,7 +60,8 @@ class Board
   def game_won
     win_combos = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[2,4,6],[0,4,8]]
     win_combos.each do |combo|
-      return true if (@board[combo[0]] == @board[combo[1]] && @board[combo[1]] == @board[combo[2]])
+      return true if (@layout[combo[0]] == @layout[combo[1]] &&
+                      @layout[combo[1]] == @layout[combo[2]])
     end
     false
   end
@@ -91,4 +90,3 @@ class Player
   end
 end
 
-board = Board.new
