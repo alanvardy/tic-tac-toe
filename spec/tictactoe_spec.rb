@@ -99,4 +99,46 @@ end
       end
     end
   end
+
+  describe '.game_won?' do
+    context 'when there is three in a line' do
+      it 'returns true' do
+        allow(board).to receive(:three_in_a_line?).and_return(true)
+        expect(board.game_won?('Test')).to be(true)
+      end
+    end
+    context 'when there isn\'t three in a line' do
+      it 'returns false' do
+        allow(board).to receive(:three_in_a_line?).and_return(false)
+        expect(board.game_won?('Test')).to be(false)
+      end
+    end
+  end
+
+  describe '.three_in_a_line' do
+    context 'when no match' do
+      it 'returns false' do
+        expect(board.three_in_a_line?).to be(false)
+      end
+    end
+
+    context 'when match' do
+      pending 'need to fix this'
+      it 'returns true' do
+        # allow(board).to receive(:layout).and_return(['x', 'x', 'x', 'x', 'x', 'x', 'x', 'x'])
+        # expect(board.three_in_a_line?).to be(true)
+      end
+
+    end
+  end
+end
+
+describe 'Player' do
+  context 'when initialized' do
+    it 'creates a player' do
+      player = Player.new('Test', '#')
+      expect(player.name).to eq('Test')
+      expect(player.symbol).to eq('#')
+    end
+  end
 end
